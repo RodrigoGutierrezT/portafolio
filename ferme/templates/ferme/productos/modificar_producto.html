@@ -1,0 +1,49 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Modificar producto
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<main class="">
+
+<div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+<div>
+    <h2>Modificar Producto</h2>
+    <form action="" id="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form | crispy }}
+
+        <br/>
+        <button type="submit" id="btnGuardar" class="btn  btn-primary">Guardar</button>
+    </form>
+    <p>{{mensaje}}</p>
+</div>
+
+</div>
+</div>
+
+<script>
+    let style = document.createElement('style');
+    style.innerHTML = `
+    .selectdatewidget {
+        display: inline-block;
+    }
+
+    select[name$="_day"].selectdatewidget {
+        width: 27%;
+    }
+    select[name$="_month"].selectdatewidget {
+        width: 38%;
+    }
+    select[name$="_year"].selectdatewidget {
+        width: 35%;
+    }
+    `;
+    document.head.appendChild(style);
+</script>
+</main>
+
+{% endblock %}

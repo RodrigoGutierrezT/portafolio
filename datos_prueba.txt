@@ -1,0 +1,182 @@
+
+--DATOS DE TIPO
+Insert into C##PORTAFOLIO.FERME_TIPO (ID,NOMBRE) values ('101','Esmalte al agua');
+Insert into C##PORTAFOLIO.FERME_TIPO (ID,NOMBRE) values ('103','Gasolina');
+Insert into C##PORTAFOLIO.FERME_TIPO (ID,NOMBRE) values ('104','Diesel');
+Insert into C##PORTAFOLIO.FERME_TIPO (ID,NOMBRE) values ('107','Gas');
+Insert into C##PORTAFOLIO.FERME_TIPO (ID,NOMBRE) values ('102','Pintura látex');
+Insert into C##PORTAFOLIO.FERME_TIPO (ID,NOMBRE) values ('105','Inalámbrico');
+Insert into C##PORTAFOLIO.FERME_TIPO (ID,NOMBRE) values ('106','Eléctrica');
+
+
+--DATOS DE MARCA
+Insert into C##PORTAFOLIO.FERME_MARCA (ID,NOMBRE,SLUG) values ('121','BlackDecker','blackdecker');
+Insert into C##PORTAFOLIO.FERME_MARCA (ID,NOMBRE,SLUG) values ('124','Ceresita','ceresita');
+Insert into C##PORTAFOLIO.FERME_MARCA (ID,NOMBRE,SLUG) values ('101','Makita','makita');
+Insert into C##PORTAFOLIO.FERME_MARCA (ID,NOMBRE,SLUG) values ('127','Recco','recco');
+Insert into C##PORTAFOLIO.FERME_MARCA (ID,NOMBRE,SLUG) values ('122','Hyundai','hyundai');
+Insert into C##PORTAFOLIO.FERME_MARCA (ID,NOMBRE,SLUG) values ('123','Atlantic','atlantic');
+Insert into C##PORTAFOLIO.FERME_MARCA (ID,NOMBRE,SLUG) values ('125','Sipa','sipa');
+Insert into C##PORTAFOLIO.FERME_MARCA (ID,NOMBRE,SLUG) values ('126','Samsung','samsung');
+
+
+--DATOS DE CATEGORIA 
+Insert into C##PORTAFOLIO.FERME_CATEGORIA (ID,NOMBRE,SLUG) values ('103','Pinturas','pinturas');
+Insert into C##PORTAFOLIO.FERME_CATEGORIA (ID,NOMBRE,SLUG) values ('106','Maquinaria','maquinaria');
+Insert into C##PORTAFOLIO.FERME_CATEGORIA (ID,NOMBRE,SLUG) values ('107','Hogar y jardín','hogar-y-jardin');
+Insert into C##PORTAFOLIO.FERME_CATEGORIA (ID,NOMBRE,SLUG) values ('102','Herramientas','herramientas');
+Insert into C##PORTAFOLIO.FERME_CATEGORIA (ID,NOMBRE,SLUG) values ('105','Calefacción','calefaccion');
+
+
+--DATOS DE USUARIOS
+Insert into C##PORTAFOLIO.AUTH_USER (ID,PASSWORD,LAST_LOGIN,IS_SUPERUSER,USERNAME,FIRST_NAME,LAST_NAME,EMAIL,IS_STAFF,IS_ACTIVE,DATE_JOINED) values ('543','pbkdf2_sha256$260000$9lsx4B8bTPxO3qiFSgaGoL$ivX4r68cfV+LwarNgQ1WnbccX5/Ywow5SFAT2M4KIwQ=',null,'0','ant.becerra@gmail.com','Antonio',null,null,'1','1',to_timestamp('25/05/21 04:43:59,927102000','DD/MM/RR HH24:MI:SSXFF'));
+Insert into C##PORTAFOLIO.AUTH_USER (ID,PASSWORD,LAST_LOGIN,IS_SUPERUSER,USERNAME,FIRST_NAME,LAST_NAME,EMAIL,IS_STAFF,IS_ACTIVE,DATE_JOINED) values ('561','pbkdf2_sha256$260000$ftounJQXOf0aHBIizjC311$tabeF5iaE5p1kyrkJJqndIyYieRcm0q+un0iaxcs6tw=',null,'0','do.anemona@gmail.com','Doris',null,null,'0','1',to_timestamp('25/05/21 04:46:56,836524000','DD/MM/RR HH24:MI:SSXFF'));
+Insert into C##PORTAFOLIO.AUTH_USER (ID,PASSWORD,LAST_LOGIN,IS_SUPERUSER,USERNAME,FIRST_NAME,LAST_NAME,EMAIL,IS_STAFF,IS_ACTIVE,DATE_JOINED) values ('562','pbkdf2_sha256$260000$0E0Sa8ACsj5V22i47Edg6K$/uWjLz/SMoQv8dFOTIsNu8wCyxQ6y8WCNCgAO3f6TVQ=',null,'0','ped.aguirre@gmail.cl','Pedro',null,null,'0','1',to_timestamp('25/05/21 04:47:27,581441000','DD/MM/RR HH24:MI:SSXFF'));
+Insert into C##PORTAFOLIO.AUTH_USER (ID,PASSWORD,LAST_LOGIN,IS_SUPERUSER,USERNAME,FIRST_NAME,LAST_NAME,EMAIL,IS_STAFF,IS_ACTIVE,DATE_JOINED) values ('524','pbkdf2_sha256$260000$ByVUIAb2bjb9ORXuzTWLR8$oy3MBYNk2kzLVIPLk4BFuOpGXNekPalvl5XNnsPzYJI=',null,'0','andres.90@hotmail.com','Andres',null,null,'0','1',to_timestamp('25/05/21 03:54:21,935589000','DD/MM/RR HH24:MI:SSXFF'));
+Insert into C##PORTAFOLIO.AUTH_USER (ID,PASSWORD,LAST_LOGIN,IS_SUPERUSER,USERNAME,FIRST_NAME,LAST_NAME,EMAIL,IS_STAFF,IS_ACTIVE,DATE_JOINED) values ('522','pbkdf2_sha256$260000$7cEh4CuIUGjODp1foU112F$Sks+oGCbFGyKqo5dbFGDRxIHxq3Ik1+t2I1iGsXtLhI=',null,'0','agata_@hotmail.cl','Agata',null,null,'0','1',to_timestamp('25/05/21 03:52:58,503628000','DD/MM/RR HH24:MI:SSXFF'));
+Insert into C##PORTAFOLIO.AUTH_USER (ID,PASSWORD,LAST_LOGIN,IS_SUPERUSER,USERNAME,FIRST_NAME,LAST_NAME,EMAIL,IS_STAFF,IS_ACTIVE,DATE_JOINED) values ('541','pbkdf2_sha256$260000$5egk9vMBrrWKlShvifpZl4$t7T5zyhz/Okk4TEsg9KnTYkPFngien4DoLb9v5G9++g=',null,'0','gloria.acu@gmail.com','Gloria',null,null,'1','1',to_timestamp('25/05/21 04:42:38,179878000','DD/MM/RR HH24:MI:SSXFF'));
+Insert into C##PORTAFOLIO.AUTH_USER (ID,PASSWORD,LAST_LOGIN,IS_SUPERUSER,USERNAME,FIRST_NAME,LAST_NAME,EMAIL,IS_STAFF,IS_ACTIVE,DATE_JOINED) values ('542','pbkdf2_sha256$260000$ABoNgX8rPHuY8GjmoPHMSH$z20IyAIXtOhDc2oTF/P7a1J+mnyT6ua+Q8JdO+i1Bis=',null,'0','carl.sepulveda@gmail.com','Carlos',null,null,'1','1',to_timestamp('25/05/21 04:43:19,518194000','DD/MM/RR HH24:MI:SSXFF'));
+Insert into C##PORTAFOLIO.AUTH_USER (ID,PASSWORD,LAST_LOGIN,IS_SUPERUSER,USERNAME,FIRST_NAME,LAST_NAME,EMAIL,IS_STAFF,IS_ACTIVE,DATE_JOINED) values ('544','pbkdf2_sha256$260000$PtqiaPldOQx4Exp1EyEG3Z$SHBmRAwIkKS3RTXtGbfMFZalpXtBvq7LjX56GD0B/aw=',null,'1','al.castro@gmail.cl','Alex',null,null,'1','1',to_timestamp('25/05/21 04:45:26,517877000','DD/MM/RR HH24:MI:SSXFF'));
+Insert into C##PORTAFOLIO.AUTH_USER (ID,PASSWORD,LAST_LOGIN,IS_SUPERUSER,USERNAME,FIRST_NAME,LAST_NAME,EMAIL,IS_STAFF,IS_ACTIVE,DATE_JOINED) values ('523','pbkdf2_sha256$260000$g4vOBbugMI7KkzIp87r7m1$uD+yDE9FFqzcD4cu0CXndlTbNMv80lBOX+ZI4sKz4nA=',null,'0','cat.castro@gmail.com','Catalina',null,null,'0','1',to_timestamp('25/05/21 03:53:40,441777000','DD/MM/RR HH24:MI:SSXFF'));
+Insert into C##PORTAFOLIO.AUTH_USER (ID,PASSWORD,LAST_LOGIN,IS_SUPERUSER,USERNAME,FIRST_NAME,LAST_NAME,EMAIL,IS_STAFF,IS_ACTIVE,DATE_JOINED) values ('525','pbkdf2_sha256$260000$LJCbA6DpDiGjxyEDUQcmGY$1yGp3nhdWA3qZUacdaettkaHtcaauyFFsfKHxfvkaWw=',null,'0','rod.tello@gmail.com','Rodrigo',null,null,'0','1',to_timestamp('25/05/21 03:55:09,602606000','DD/MM/RR HH24:MI:SSXFF'));
+Insert into C##PORTAFOLIO.AUTH_USER (ID,PASSWORD,LAST_LOGIN,IS_SUPERUSER,USERNAME,FIRST_NAME,LAST_NAME,EMAIL,IS_STAFF,IS_ACTIVE,DATE_JOINED) values ('526','pbkdf2_sha256$260000$ZEUXGFyRfawJ6E3NxUb3fs$39a9OZWANI1gRAvb/pzDmKgwD/MTTViCX8sHmWPzAS8=',null,'0','fra.perez@gmail.com','Francisco',null,null,'0','1',to_timestamp('25/05/21 03:55:56,379280000','DD/MM/RR HH24:MI:SSXFF'));
+
+
+--DATOS DE PROVEEDOR 
+Insert into C##PORTAFOLIO.FERME_PROVEEDOR (ID,RUT,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,FECHA_NACIMIENTO,EMAIL,TELEFONO,RUBRO,EMPRESA,USER_ID) values ('104','189036725','Andres','Acevedo',null,null,'andres.90@hotmail.com','912341234','Maquinaria','Maquinaria LTDA','524');
+Insert into C##PORTAFOLIO.FERME_PROVEEDOR (ID,RUT,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,FECHA_NACIMIENTO,EMAIL,TELEFONO,RUBRO,EMPRESA,USER_ID) values ('102','187041230','agata','lopez',null,null,'agata_@hotmail.cl','912341234','Pinturas','Pinturas LTDA','522');
+Insert into C##PORTAFOLIO.FERME_PROVEEDOR (ID,RUT,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,FECHA_NACIMIENTO,EMAIL,TELEFONO,RUBRO,EMPRESA,USER_ID) values ('103','179033905','Catalina','Castro',null,null,'cat.castro@gmail.com','912341234','Calefacción','Calefacción LTDA','523');
+Insert into C##PORTAFOLIO.FERME_PROVEEDOR (ID,RUT,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,FECHA_NACIMIENTO,EMAIL,TELEFONO,RUBRO,EMPRESA,USER_ID) values ('105','82067551','Rodrigo','Tello',null,null,'rod.tello@gmail.com','912341234','Hogar y jardín','Hogar y jardín LTDA','525');
+Insert into C##PORTAFOLIO.FERME_PROVEEDOR (ID,RUT,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,FECHA_NACIMIENTO,EMAIL,TELEFONO,RUBRO,EMPRESA,USER_ID) values ('106','147981031','Francisco','perez',null,null,'fra.perez@gmail.com','912341234','Herramientas','Herramientas LTDA','526');
+
+
+--DATOS DE PRODUCTOS
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('101','00410600000000103','Generador hyundai  2800w','599000','10','3',null,'images/generador-hyundai5000w.jpg','generador-hyundai-2800w','1','106','122','104','103');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('121','00410620270530103','Generador Black Decker 2700','149900','15','5',to_date('30/05/27','DD/MM/RR'),'images/Generador-multiusos-Black-Decker-3000_SwDaURn.png','generador-black-decker-2700','1','106','121','104','103');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('146','00510720260521105','Cortasetos Inalámbrico Black Decker 20 v','89900','20','5',to_date('21/05/26','DD/MM/RR'),'images/Cortasetos-Inalámbrico-Black-Decker_dUJoQ7t.jpg','cortasetos-inalambrico-black-decker-20-v','1','107','121','105','105');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('161','00610220280528105','Taladro rotación inalámbrico','29900','15','3',to_date('28/05/28','DD/MM/RR'),'images/Taladro-rotación-inalámbrico.jpg','taladro-rotacion-inalambrico','1','102','121','106','105');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('162','00310520290527106','Calefactor eléctrico atlantic 750 WIFI','179900','20','8',to_date('27/05/29','DD/MM/RR'),'images/Calefactor-eléctrico-atlantic.jpg','calefactor-electrico-atlantic-750-wifi','1','105','123','103','106');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('102','00410600000000104','Generador eléctrico a diesel 6500W','899000','7','2',null,'images/Generador-eléctrico-a-diesel-6500W.jpg','generador-electrico-a-diesel-6500w','1','106','122','104','104');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('122','00510700000000106','Cortacésped eléctrica 1200 W','65900','9','3',null,'images/Cortacésped-eléctrica-1200-W.jpg','cortacesped-electrica-1200-w','1','107','121','105','106');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('124','00510720270530106','Lijadora orbital eléctrica 135 W','39900','15','5',to_date('30/05/27','DD/MM/RR'),'images/Lijadora-orbital-eléctrica-135_3qxuIpV.jpg','lijadora-orbital-electrica-135-w','1','102','121','106','106');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('125','00310500000000107','Estufa a gas 11/ 15 kg','89900','20','5',null,'images/Estufa-a-gas-11-15-kg.jpg','estufa-a-gas-11-15-kg','1','105','127','103','107');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('126','00210320260528101','Esmalte al agua satinado blanco 1 gl','22990','30','10',to_date('28/05/26','DD/MM/RR'),'images/ceresita-esmalte-al-agua.jpg','esmalte-al-agua-satinado-blanco-1-gl','1','103','124','102','101');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('141','00210300000000102','Pintura látex habitacional','54990','15','5',null,'images/Pintura-látex.jpg','pintura-latex-habitacional','1','103','124','102','102');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('143','00210320290527102','Pintura látex extracubriente 4 gl','49900','15','5',to_date('27/05/29','DD/MM/RR'),'images/Pintura-látex-extracubriente_AlDXIJB.jpg','pintura-latex-extracubriente-4-gl','1','103','125','102','102');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('144','00510700000000105','Cortasetos altura 18V','489900','8','2',null,'images/Cortasetos-altura-18V-en-angulo.jpg','cortasetos-altura-18v','1','107','101','105','105');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('147','00610200000000106','Sierra circular eléctrica 7 1/4" 1600W','149900','10','3',null,'images/Sierra-circular-eléctrica.jpg','sierra-circular-electrica-7-14-1600w','1','102','101','106','106');
+Insert into C##PORTAFOLIO.FERME_PRODUCTO (ID,COD_PROD,NOMBRE,PRECIO,STOCK_ACTUAL,STOCK_CRITICO,FECHA_VENCIMIENTO,IMG,SLUG,ACTIVO,CATEGORIA_ID,MARCA_ID,PROVEEDOR_ID,TIPO_ID) values ('163','00310500000000106','Calefactor atlantic 1000w','99000','10','5',null,'images/Calefactor-eléctrico-Atlantic1000.jpg','calefactor-atlantic-1000w','1','105','123','103','106');
+
+
+--DATOS DE EMPLEADO
+Insert into C##PORTAFOLIO.FERME_EMPLEADO (ID,RUT,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,FECHA_NACIMIENTO,EMAIL,TELEFONO,CARGO,USER_ID) values ('103','189189036','Antonio','Becerra',null,null,'ant.becerra@gmail.com','912341234','SUPERVISOR','543');
+Insert into C##PORTAFOLIO.FERME_EMPLEADO (ID,RUT,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,FECHA_NACIMIENTO,EMAIL,TELEFONO,CARGO,USER_ID) values ('101','145057289','Gloria','Acuña',null,null,'gloria.acu@gmail.com','912341234','VENDEDOR','541');
+Insert into C##PORTAFOLIO.FERME_EMPLEADO (ID,RUT,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,FECHA_NACIMIENTO,EMAIL,TELEFONO,CARGO,USER_ID) values ('102','189214105','Carlos','Sepúlveda',null,null,'carl.sepulveda@gmail.com','912341234','VENDEDOR','542');
+Insert into C##PORTAFOLIO.FERME_EMPLEADO (ID,RUT,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,FECHA_NACIMIENTO,EMAIL,TELEFONO,CARGO,USER_ID) values ('104','189901921','Alex','Castro',null,null,'al.castro@gmail.cl','912341234','ADMIN','544');
+
+--DATOS DE CLIENTE
+Insert into C##PORTAFOLIO.FERME_CLIENTE (ID,RUT,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,FECHA_NACIMIENTO,EMAIL,TELEFONO,USER_ID) values ('101','165051821','doris','anemona',null,null,'do.anemona@gmail.com','912341234','561');
+Insert into C##PORTAFOLIO.FERME_CLIENTE (ID,RUT,NOMBRE,APELLIDO_PATERNO,APELLIDO_MATERNO,FECHA_NACIMIENTO,EMAIL,TELEFONO,USER_ID) values ('102','197920010','pedro','aguirre',null,null,'ped.aguirre@gmail.cl','912341234','562');
+
+--DATOS ORDEN DE COMPRA
+Insert into C##PORTAFOLIO.FERME_ORDENCOMPRA (ID,FECHA_SOLICITUD,FECHA_RECEPCION,ACTIVO,ESTADO_ORDEN,EMPLEADO_ID,PROVEEDOR_ID) values ('101',to_date('25/05/21','DD/MM/RR'),null,'1','GENERADA','102','105');
+Insert into C##PORTAFOLIO.FERME_ORDENCOMPRA (ID,FECHA_SOLICITUD,FECHA_RECEPCION,ACTIVO,ESTADO_ORDEN,EMPLEADO_ID,PROVEEDOR_ID) values ('102',to_date('25/05/21','DD/MM/RR'),null,'1','GENERADA','102','104');
+
+--DATOS DETALLE ORDEN DE COMPRA
+Insert into C##PORTAFOLIO.FERME_DETALLEORDEN (ID,CANTIDAD,ORDEN_COMPRA_ID,PRODUCTO_ID) values ('101','10','101','122');
+Insert into C##PORTAFOLIO.FERME_DETALLEORDEN (ID,CANTIDAD,ORDEN_COMPRA_ID,PRODUCTO_ID) values ('103','5','101','146');
+Insert into C##PORTAFOLIO.FERME_DETALLEORDEN (ID,CANTIDAD,ORDEN_COMPRA_ID,PRODUCTO_ID) values ('102','10','102','101');
+
+-- DATOS DE GRUPO
+Insert into C##PORTAFOLIO.AUTH_USER_GROUPS (ID,USER_ID,GROUP_ID) values ('541','561','4');
+Insert into C##PORTAFOLIO.AUTH_USER_GROUPS (ID,USER_ID,GROUP_ID) values ('542','562','4');
+Insert into C##PORTAFOLIO.AUTH_USER_GROUPS (ID,USER_ID,GROUP_ID) values ('503','524','5');
+Insert into C##PORTAFOLIO.AUTH_USER_GROUPS (ID,USER_ID,GROUP_ID) values ('501','522','5');
+Insert into C##PORTAFOLIO.AUTH_USER_GROUPS (ID,USER_ID,GROUP_ID) values ('521','541','3');
+Insert into C##PORTAFOLIO.AUTH_USER_GROUPS (ID,USER_ID,GROUP_ID) values ('522','542','3');
+Insert into C##PORTAFOLIO.AUTH_USER_GROUPS (ID,USER_ID,GROUP_ID) values ('524','543','1');
+Insert into C##PORTAFOLIO.AUTH_USER_GROUPS (ID,USER_ID,GROUP_ID) values ('525','544','2');
+Insert into C##PORTAFOLIO.AUTH_USER_GROUPS (ID,USER_ID,GROUP_ID) values ('502','523','5');
+Insert into C##PORTAFOLIO.AUTH_USER_GROUPS (ID,USER_ID,GROUP_ID) values ('504','525','5');
+Insert into C##PORTAFOLIO.AUTH_USER_GROUPS (ID,USER_ID,GROUP_ID) values ('505','526','5');
+
+COMMIT;
+
+--UPDATE DE ORDEN DE COMPRA
+
+UPDATE C##PORTAFOLIO.FERME_ORDENCOMPRA 
+SET productos_solicitados = 'Cortacésped eléctrica 1200 W x 10 Cortasetos Inalámbrico Black Decker 20 v x 5'
+WHERE ID='101';
+
+UPDATE C##PORTAFOLIO.FERME_ORDENCOMPRA 
+SET productos_solicitados = 'Generador hyundai  2800w x 10'
+WHERE ID='102';
+
+--UPDATE DE DESCRIPCION 
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Potencia máxima de 2800w con corriente nominal de 11,3 A , además de utilizar gasolina con capacidad de deposito de 15 litros.'
+WHERE ID='101';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Con una potencia máxima de 2700 vatios, el generador Black Decker BD 3000 es una gran inversión para uso en exteriores, proyectos de industria ligera y energía de emergencia.'
+WHERE ID='121';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Batería de Ión de Litio de 20V MAX*, para fácil aplicación sin cables, las cuchillas de doble acción de 22 in. cortan ramas, hasta con un 40% menos vibración que las cuchillas de una acción.'
+WHERE ID='146';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Potente motor que entrega 300 UWO de poder, dos velocidades, 0 -450 / 1.500 RPM.'
+WHERE ID='161';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Consumo 0.75 kWh, Tipo de calefacción Radiación'
+WHERE ID='162';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Gran depósito de gasolina para mayor autonomía Chasis completo para mayor protección del equipo Alternador con corriente AVR para mejor calidad de la corriente.'
+WHERE ID='102';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'El Cortacésped GR1000 1200 W de BlackDecker viene con un potente motor universal el cual se alimenta de energía eléctrica, la cual puede ser obtenida de cualquier tomacorriente tradicional'
+WHERE ID='122';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'El modelo de Lijadora Orbital BlackDecker es una alternativa fiable y segura que permite un uso prolongado y la obtención de resultados de alta calidad.'
+WHERE ID='124';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Posee encendido electrónico por medio de pilas y porta balón para cilindros de 11/15 kg. Además, incorpora seguro de encendido por termocupla, que corta el gas en caso de que se apague la llama del piloto.'
+WHERE ID='125';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Esmalte al Agua Satinado 1 gl. De la marca Tajamar es este esmalte de la línea Pinta Fácil, de color blanco indicado para interiores y exteriores. Ideal para baños, cocina y fachadas, se trata de una pintura lavable y anti hongos.'
+WHERE ID='126';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Características del Látex lavable: una vez completa la primera mano, que podrás aplicar con brocha, rodillo o pistola, seca al tacto en tan solo 30 minutos. Sin embargo, debes esperar 4 horas para proceder a colocar la segunda mano, de forma tal que puedas aprovechar al máximo todas las cualidades de esta pintura.'
+WHERE ID='141';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Esta Pintura Látex Extracubriente de color blanco y marca Sipa, es perfecta para aplicar sobre estucos, hormigón, ladrillos, fibrocemento y muros con pasta muros, entre otros, ya que promete dejar las superficies, tanto interiores como exteriores, impecables.'
+WHERE ID='143';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Cortaseto de Altura Inalámbrico modelo DUN500WRTE;Motor BL sin carbones y protección contra polvo y agua lluvia;Longitud hoja de corte 500 mm;Longitud total 2.115 mm.'
+WHERE ID='144';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Trabaja de forma segura con la Sierra Circular 7 1/4" con 1.600W de potencia marca Makita, que te ayudará a realizar tus labores con perfectas y limpias terminaciones, gracias a su capacidad de corte, la cual abarca a 90° 65/67 milímetros y a 45° 44/45 milímetros.'
+WHERE ID='147';
+
+UPDATE C##PORTAFOLIO.FERME_PRODUCTO
+SET DESCRIPCION = 'Tipo de calefacción Convección, Potencia 1000 W, Alimentación Eléctrica'
+WHERE ID='163';
+
+COMMIT;
+
+
+
+
+

@@ -1,0 +1,28 @@
+ADMIN
+-Usuario:al.castro@gmail.cl
+-Contraseña:189901ale
+
+EMPLEADO (Supervisor)
+-Usuario: ant.becerra@gmail.com
+-Contraseña:189189ant
+
+EMPLEADO (Vendedor)
+-usuario:gloria.acu@gmail.com
+-Contraseña:145057glo
+
+-Usuario:carl.sepulveda@gmail.com
+-Contraseña:189214car
+
+PROVEEDOR
+-Usuario: andres.90@hotmail.com
+-Contraseña:189036and
+
+-Usuario: rod.tello@gmail.com
+-Contraseña:820675rod
+
+CLIENTE
+-Usuario:do.anemona@gmail.com
+-Contraseña:165051dor
+
+-Usuario:ped.aguirre@gmail.cl
+-Contraseña:197920ped

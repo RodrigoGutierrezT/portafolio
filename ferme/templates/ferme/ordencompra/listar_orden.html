@@ -1,0 +1,107 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Listar Ordenes
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+    let eliminarOrden = async (id) => {
+        let response = await Swal.fire({
+            "title":"¿Estas seguro?",
+            "text": "esta acción no se puede deshacer",
+            "icon": "question",
+            "showCancelButton": true,
+            "cancelButtonText": "Cancelar",
+            "confirmButtonText": "Si, Eliminar",
+            "confirmButtonColor": "#dc3545"
+        });
+
+        if(response.isConfirmed) {
+            window.location.href = "/orden/eliminar/"+id+"/"
+        }
+    } 
+
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+<main class="">
+
+<div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+<div>
+    <hr>
+    <div>
+        <h2>Ordenes de compra</h2>
+    </div>
+    <hr>
+    {% if user.is_staff %}
+    <div class="col-6 col-md-6 col-lg-6">
+        <div class="card card-body">
+    
+            <form method="get">
+                {{myFilter.form | crispy}}
+                <br>
+            <button class="btn btn-primary btn-sm" type="submit">Buscar</button>
+          </form>
+    
+        </div>
+    </div>
+    <div class="d-flex p-3 ">
+        <a class="btn btn-sm btn-primary text-align-right" href="{% url "ferme:orden_agregar" %}">Agregar Orden + </a>
+    </div>
+    {% endif %}
+        <table class="table table-sm table-striped table-hover table-responsive-md">
+            <tr>
+                <th>iD</th>
+                <th>Fecha Solicitud</th>
+                <th>Fecha Recepcion</th>
+                <th>Estado</th>
+                <th>Proveedor</th>
+                {% if user.is_staff %}
+                <th>Actualizar</th>
+                <th>Eliminar</th>
+                {% else %}
+                <th>Consultar</th>
+                {% endif %}
+            </tr>
+
+            {% for o in entity %}
+
+            <tr>
+                <td>{{o.id}}</td>
+                <td>{{o.fecha_solicitud}}</td>
+                <td>
+                    {% if o.fecha_recepcion %}
+                    o.fecha_recepcion
+                    {% else %}
+                    Pendiente
+                    {% endif %}
+                </td>
+                <td>{{o.estado_orden | title}}</td>
+                <td>{{o.proveedor}}</td>
+                {% if user.is_staff %}
+                <td><a class="btn btn-sm btn-info" href="{% url "ferme:orden_modificar" o.id %}">Actualizar</a></td>
+
+                <td><a class="btn btn-sm btn-danger" onclick="eliminarOrden({{ o.id }})" href="#">Eliminar</a></td>
+                {% else %}
+                <td><a class="btn btn-sm btn-info" href="{% url "ferme:orden_consultar_proveedor" o.id %}">Consultar + </a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+
+        </table>
+        <div>
+            {% include 'ferme/paginator.html' %}
+        </div>
+</div>
+</div>
+</main>
+
+{% endblock %}

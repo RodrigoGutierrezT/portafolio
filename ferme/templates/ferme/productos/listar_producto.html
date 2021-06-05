@@ -1,0 +1,101 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Listar productos
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+    let eliminarProducto = async (id) => {
+        let response = await Swal.fire({
+            "title":"¿Estas seguro?",
+            "text": "esta acción no se puede deshacer",
+            "icon": "question",
+            "showCancelButton": true,
+            "cancelButtonText": "Cancelar",
+            "confirmButtonText": "Si, Eliminar",
+            "confirmButtonColor": "#dc3545"
+        });
+
+        if(response.isConfirmed) {
+            window.location.href = "/producto/eliminar/"+id+"/"
+        }
+    } 
+
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+<main class="">
+
+<div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+<div>
+    <hr>
+    <div>
+        <h2>Productos</h2>
+    </div>
+    <hr>
+    <div class="col-6 col-md-6 col-lg-6">
+    <div class="card card-body">
+
+        <form method="get">
+            {{myFilter.form | crispy}}
+            <br>
+        <button class="btn btn-primary btn-sm" type="submit">Buscar</button>
+      </form>
+
+    </div>
+    </div>
+    <div class="d-flex p-3 ">
+        <a class="btn btn-sm btn-primary text-align-right" href="{% url "ferme:producto_agregar" %}">Agregar Producto + </a>
+    </div>
+        <table class="table table-sm table-striped table-hover table-responsive-md">
+            <tr>
+                <th>iD</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Stock Actual</th>
+                <th>Stock Crítico</th>
+                <th>Activo</th>
+                <th>Actualizar</th>
+                <th>Eliminar</th>
+            </tr>
+
+            {% for p in entity %}
+
+            <tr>
+                <td>{{p.id}}</td>
+                <td>{{p.cod_prod}}</td>
+                <td>{{p.nombre}}</td>
+                <td>{{p.precio | intcomma }}</td>
+                <td>{{p.stock_actual}}</td>
+                <td>{{p.stock_critico}}</td>
+                <td>
+                    {% if p.activo %}
+                    Si
+                    {% else %}
+                    No
+                    {% endif %}
+                </td>
+                <td><a class="btn btn-sm btn-info" href="{% url "ferme:producto_modificar" p.id %}">Actualizar</a></td>
+
+                <td><a class="btn btn-sm btn-danger" onclick="eliminarProducto({{ p.id }})" href="#">Eliminar</a></td>
+            </tr>
+            {% endfor %}
+
+        </table>
+        <div>
+            {% include 'ferme/paginator.html' %}
+        </div>
+</div>
+</div>
+</main>
+
+{% endblock %}

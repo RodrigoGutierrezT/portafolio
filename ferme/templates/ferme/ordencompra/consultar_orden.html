@@ -1,0 +1,30 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Consultar Orden
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<main class="">
+
+<div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+<div>
+    <h2>Orden de compra {{orden.id}}</h2>
+    <hr>
+    <div>
+        <h4>Fecha Solicitud:</h4>
+        <p>{{orden.fecha_solicitud}}</p>
+        <h4>Descripción:</h4>
+        <p>{{orden.productos_solicitados }}</p>
+        <h4>Estado:</h4>
+        <p>{{orden.estado_orden | title}}</p>
+    </div>
+    <a class="btn btn-sm btn-danger" href="{% url "ferme:orden_listar_proveedor" %}">Volver</a>
+</div>
+
+</div>
+</div>
+</main>
+
+{% endblock %}
