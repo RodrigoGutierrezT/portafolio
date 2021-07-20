@@ -1,5 +1,5 @@
-ADMIN
--Usuario:al.castro@gmail.cl
+EMPLEADO (Admin)
+-Usuario:al.castro@gmail.com
 -Contraseña:189901ale
 
 EMPLEADO (Supervisor)
@@ -24,5 +24,11 @@ CLIENTE
 -Usuario:do.anemona@gmail.com
 -Contraseña:165051dor
 
--Usuario:ped.aguirre@gmail.cl
+-Usuario:ped.aguirre@gmail.com
 -Contraseña:197920ped
+
+-Usuario: j.romero@hotmail.com
+-Contraseña:189028jua
+
+-Usuario:m.leiva@hotmail.com
+-Contraseña:123908mar

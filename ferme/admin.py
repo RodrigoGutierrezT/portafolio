@@ -89,7 +89,7 @@ class BoletaAdmin(admin.ModelAdmin):
 
 @admin.register(models.Compra)
 class CompraAdmin(admin.ModelAdmin):
-    list_display = ['id','cliente','fecha','get_total']
+    list_display = ['id', 'nombre', 'apellido_paterno','email','fecha','pagado','get_total']
 
     def get_total(self, obj):
         result = re.sub(r'(?<!^)(?=(\d{3})+$)', r'.', str(obj.total))

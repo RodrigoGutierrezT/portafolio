@@ -1,0 +1,94 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Listar facturas
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+    let anularFactura = async (id) => {
+        let response = await Swal.fire({
+            "title":"¿Estas seguro?",
+            "text": "esta acción no se puede deshacer",
+            "icon": "question",
+            "showCancelButton": true,
+            "cancelButtonText": "Cancelar",
+            "confirmButtonText": "Si, Anular",
+            "confirmButtonColor": "#dc3545"
+        });
+
+        if(response.isConfirmed) {
+            window.location.href = "/factura/anular/"+id+"/";
+        }
+    } 
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+<main class="">
+
+<div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+<div>
+    <hr>
+    <div>
+        <h2>Facturas</h2>
+    </div>
+    <hr>
+    <div class="col-6 col-md-6 col-lg-6">
+    <div class="card card-body">
+
+        <form method="get">
+            {{myFilter.form | crispy}}
+            <br>
+        <button class="btn btn-primary btn-sm" type="submit">Buscar</button>
+      </form>
+
+    </div>
+    </div>
+    <br>
+        <table class="table table-sm table-striped table-hover table-responsive-md">
+            <tr>
+                <th>iD</th>
+                <th>Rut empresa</th>
+                <th>Nombre empresa</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Total</th>
+                <th>Anular</th>
+                <th>Comprobante</th>
+            </tr>
+
+            {% for f in entity %}
+
+            <tr>
+                <td>{{f.id}}</td>
+                <td>{{f.rut_empresa}}</td>
+                <td>{{f.nombre_empresa}}</td>
+                <td>{{f.fecha}}</td>
+                <td>{{f.estado | title }}</td>
+                <td>${{f.total | intcomma }}</td>
+                <td>
+                    {% if f.estado == 'GENERADA' %}
+                    <a class="btn btn-sm btn-danger {{ f.id }}" id="{{ f.id }}" onclick="anularFactura({{ f.id }})" href="#">Anular</a>
+                    {% endif %}
+                </td>
+                <td><a class="btn btn-sm btn-success" target="_blank" href="{% url 'ferme:comprobante_factura_view' f.id %}">Comprobante</a></td>
+
+            </tr>
+            {% endfor %}
+
+        </table>
+        <div>
+            {% include 'ferme/paginator.html' %}
+        </div>
+</div>
+</div>
+</main>
+
+{% endblock %}

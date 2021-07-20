@@ -1,0 +1,57 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Perfil
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<main class="">
+
+<div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+<div>
+    <hr>
+    <h2 class="d-inline">Perfil {{usuario.nombre | title}} {{usuario.apellido_paterno | title}}</h2>
+    <hr>
+    <div>
+        <h4>Nombre:</h4>
+        <p>{{usuario.nombre | title}} {{usuario.apellido_paterno | title}}</p>
+        <h4>Rut:</h4>
+        <p>{{usuario.rut}}</p>
+        <h4>Fecha de nacimiento:</h4>
+        <p>{{usuario.fecha_nacimiento }}</p>
+        <h4>Email:</h4>
+        <p>{{usuario.email}}</p>
+        {% if usuario.rubro %}
+        <h4>Rubro:</h4>
+        <p>{{usuario.rubro}}</p>
+        {% endif %}
+        {% if usuario.empresa %}
+        <h4>Empresa:</h4>
+        <p>{{usuario.empresa}}</p>
+        {% endif %}
+        {% if usuario.cargo %}
+        <h4>Cargo:</h4>
+        <p>{{usuario.cargo | title }}</p>
+        {% endif %}
+        
+
+    </div>
+    <form action="" id="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form | crispy }}
+
+        <br/>
+        <button type="submit" id="btnGuardar" class="btn  btn-primary">Guardar</button>
+        <a class="d-inline-block btn btn-md btn-secondary" href="{% url "ferme:change_password" %}">Cambiar Contraseña</a>
+
+    </form>
+    <p>{{mensaje}}</p>
+</div>
+
+</div>
+</div>
+</main>
+
+{% endblock %}

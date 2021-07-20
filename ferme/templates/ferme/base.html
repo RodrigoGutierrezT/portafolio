@@ -10,6 +10,8 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/carro.css' %}">
     <title>{% block title %} FERME {% endblock %}</title>
@@ -20,9 +22,7 @@
             <div class="container-fluid px-md-4">
                 <div class="d-flex w-100 navbar-collapse">
                     <a class="navbar-brand d-flex-inline" href="/">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
-                            <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708zM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11z"/>
-                          </svg>
+                        <img src="{% static 'images/home.png' %}" height="60px" alt="">
                     </a>
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item dropdown">
@@ -73,12 +73,31 @@
                         class="btn btn-outline-secondary border-0 basket-btn">
                         <span class="fs15 fw500">Productos</span>
                     </a>
-                    <a type="button" role="button" href="#"
-                        class="btn btn-outline-secondary border-0 basket-btn">
-                        <span class="fs15 fw500">Informes</span>
-                    </a>
+                        <li class="nav-item dropdown btn btn-outline-secondary border-0 basket-btn">
+                            <a class="nav-link dropdown-toggle d-md-block fs15 fw500 btn btn-outline-secondary border-0 basket-btn" href="#" id="navbarDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Informes
+                            </a>
+                            <ul class="dropdown-menu rounded-0 border-0">
+                                <li><a class="dropdown-item" href="{% url "ferme:informe_stock" %}">Stock</a></li>
+                                <li><a class="dropdown-item" href="{% url "ferme:informe_boleta_ganancia" %}">Boletas</a></li>
+                                <li><a class="dropdown-item" href="{% url "ferme:informe_factura_ganancia" %}">Facturas</a></li>
+                            </ul>
+                        </li>
                     {% endif %}
                     {% if user.is_superuser %}
+                    <a type="button" role="button" href="{% url 'ferme:boleta_listar' %}"
+                        class="btn btn-outline-secondary border-0 basket-btn">
+                        <span class="fs15 fw500">Boleta</span>
+                    </a>
+                    <a type="button" role="button" href="{% url 'ferme:factura_listar' %}"
+                        class="btn btn-outline-secondary border-0 basket-btn">
+                        <span class="fs15 fw500">Factura</span>
+                    </a>
+                    <a type="button" role="button" href="{% url 'ferme:nota_listar' %}"
+                        class="btn btn-outline-secondary border-0 basket-btn">
+                        <span class="fs15 fw500">Nota de crédito</span>
+                    </a>
                     <a type="button" role="button" href="{% url 'admin:index' %}"
                         class="btn btn-outline-secondary border-0 basket-btn">
                         <span class="fs15 fw500">Panel de administración</span>
@@ -113,7 +132,7 @@
                     {% endif %}
 
                     {% if user.is_authenticated %}
-                    <a type="button" role="button" href="#"
+                    <a type="button" role="button" href="{% url "ferme:perfil_modificar" %}"
                         class="btn btn-outline-secondary border-0 basket-btn">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -123,6 +142,19 @@
                             </svg>
                         </div>
                         <span class="fs15 fw500">{{ user.first_name }}</span>
+                    </a>
+                    {% endif %}
+
+                    {% if request.user|has_group:"CLIENTE" %}
+                    <a type="button" role="button" href="{% url "ferme:compra_listar" %}"
+                        class="btn btn-outline-secondary border-0 basket-btn">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                            </svg>
+                        </div>
+                        <span class="fs15 fw500">Mis compras</span>
                     </a>
                     {% endif %}
 
@@ -172,10 +204,8 @@
         <hr>
         <div class="row pt-4">
             <div class="col-12 col-md">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
-                    <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708zM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11z"/>
-                  </svg>
-                <small class="d-block mb-3 text-muted">&copy; 2017-2021</small>
+                <small class="d-block mb-3 text-muted">&copy; 2018 | FERME Todos los derechos reservados</small>
+                <img id="logo-footer" height="150px" src="{% static 'images/logo.jpg' %}" alt="">
             </div>
             <div class="col-6 col-md fs15">
                 <h5>Contáctanos</h5>
@@ -193,7 +223,7 @@
                 </ul>
             </div>
             <div class="col-6 col-md fs15">
-                <iframe width="300" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=Santiago&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                <iframe width="300" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=Padre%20Alonso%20de%20Ovalle%201586,%20Santiago&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
             </div>
         </div>
     </footer>

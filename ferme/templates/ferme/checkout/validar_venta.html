@@ -1,0 +1,81 @@
+{% extends "../base.html" %}
+{% load group_tags %}
+
+{% block title %}
+FERME | Selección pago
+{% endblock %}
+
+{% block content %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+
+<div class="container">
+    <div class="col-12">
+      <h1 class="h2">Validar Venta</h1>
+    </div>
+    <div class="col-12">
+      <p>Compra N°{{compra.id}}:</p>
+    </div>
+    <hr />
+  </div>
+
+<div class="container">
+    <div class="row g-3">
+        <button id="si">Si</button>
+        <button id="no">No</button>
+    </div>
+</div>
+
+<script>
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  var csrftoken = getCookie('csrftoken');
+
+
+  document.getElementById("si").onclick = () => {
+    let url = "{% url 'ferme:validar_venta' tipo compra.id %}"
+
+    fetch(url, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'X-CSRFToken': csrftoken,
+    },
+    body: JSON.stringify({}) 
+    }).
+    then(function () {
+      location.href = "{% url 'ferme:venta_exitosa' compra.id %}"
+    });
+  }
+
+  document.getElementById("no").onclick = () => {
+    let url = "{% url 'ferme:validar_venta' tipo compra.id %}"
+
+    fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+      'X-CSRFToken': csrftoken,
+    },
+    body: JSON.stringify({}) 
+    }).
+    then(function () {
+      location.href = "{% url 'ferme:producto_all' %}"
+    });
+  }
+
+</script>
+
+{% endblock %}

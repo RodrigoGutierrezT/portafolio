@@ -1,0 +1,99 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Listar notas de crédito
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+    let anularNota = async (id) => {
+        let response = await Swal.fire({
+            "title":"¿Estas seguro?",
+            "text": "esta acción no se puede deshacer",
+            "icon": "question",
+            "showCancelButton": true,
+            "cancelButtonText": "Cancelar",
+            "confirmButtonText": "Si, Anular",
+            "confirmButtonColor": "#dc3545"
+        });
+
+        if(response.isConfirmed) {
+            window.location.href = "/nota/anular/"+id+"/";
+        }
+    } 
+
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+<main class="">
+
+<div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+<div>
+    <hr>
+    <div>
+        <h2>Notas de crédito</h2>
+    </div>
+    <hr>
+    <div class="col-6 col-md-6 col-lg-6">
+    <div class="card card-body">
+
+        <form method="get">
+            {{myFilter.form | crispy}}
+            <br>
+        <button class="btn btn-primary btn-sm" type="submit">Buscar</button>
+      </form>
+
+    </div>
+    </div>
+    <div class="d-flex p-3 ">
+        <a class="btn btn-sm btn-primary text-align-right" href="{% url "ferme:nota_agregar" %}">Generar Nota de crédito + </a>
+    </div>
+        <table class="table table-sm table-striped table-hover table-responsive-md">
+            <tr>
+                <th>iD</th>
+                <th>Rut</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Anular</th>
+                <th>Comprobante</th>
+            </tr>
+
+            {% for n in entity %}
+
+            <tr>
+                <td>{{n.id}}</td>
+                <td>{{n.rut}}</td>
+                <td>{{n.nombre_cliente}}</td>
+                <td>{{n.apellido_cliente}}</td>
+                <td>{{n.fecha}}</td>
+                <td>${{n.total_devolucion | intcomma }}</td>
+                <td>{{n.estado | title }}</td>
+                <td>
+                    {% if n.estado == 'GENERADA' %}
+                    <a class="btn btn-sm btn-danger {{ n.id }}" id="{{ n.id }}" onclick="anularNota({{ n.id }})" href="#">Anular</a>
+                    {% endif %}
+                </td>
+                <td><a class="btn btn-sm btn-success" target="_blank" href="{% url 'ferme:comprobante_nota_view' n.id %}">Comprobante</a></td>
+
+            </tr>
+            {% endfor %}
+
+        </table>
+        <div>
+            {% include 'ferme/paginator.html' %}
+        </div>
+</div>
+</div>
+</main>
+
+{% endblock %}

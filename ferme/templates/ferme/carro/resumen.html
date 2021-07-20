@@ -1,11 +1,13 @@
 {% extends "../base.html" %}
 {% load static %}
+{% load group_tags %}
 {% block title %}
 FERME | Carro de Compra
 {% endblock %}
 
 
 {% block content %}
+{% load humanize %}
 <main class="pt-5">
   <div class="container" style="max-width: 1000px">
     <div class="col-12">
@@ -23,22 +25,40 @@ FERME | Carro de Compra
         </div>
         <div class="text-end">
           
-          <div class="pt-2">Total a pagar: <span class="fw-bold h5">$</span><span id="subtotal" class="fw-bold h5">{{carro.get_total_precio}}</span></div>
+          <div class="pt-2">Total a pagar: <span class="fw-bold h5">$</span><span id="subtotal" class="fw-bold h5">{{carro.get_total_precio | intcomma}}</span></div>
           
         </div>
       </div>
       <div class="col-md-5 col-lg-4 order-md-last p-0 order-3">
+        {% if carro.get_total_precio > 0 %}
+        {% if request.user|has_group:"CLIENTE" %}
         <div class="d-grid gap-2 ">
-          <a role="button" href="" class="btn btn-success fw-bold" type="button">Pagar</a>
-          <button class="btn btn-light" type="button">Guardar compra</button>
+          <a role="button" href="#" class="btn btn-success fw-bold pagar" type="button">Pagar</a>
         </div>
+        {% endif %}
+        {% if request.user|has_group:"VENDEDOR" %}
+        <div class="d-grid gap-2 ">
+          <a role="button" href="#" class="btn btn-success fw-bold venta" type="button">Realizar venta</a>
+        </div>
+        {% endif %}
+        <div class="d-flex align-items-center justify-content-around">
+          <div class="mt-2">
+            <input type="radio" id="boleta" name="documento" value="boleta" checked>
+            <label for="boleta">Boleta</label>
+          </div>
+          <div>
+            <input type="radio" id="factura" name="documento" value="Factura">
+            <label for="factura">Factura</label>
+          </div>
+        </div>
+        {% endif %}
       </div>
       <div class="col-md-7 col-lg-8 p-0">
 
         {% for item in carro %} 
         {% with producto=item.producto %}
 
-        <div class="card mb-3 border-0 product-item" data-index="{{producto.id}}">
+        <div class="card mb-3 border-0 product-item" data-index="{{producto.id}}" >
           <div class="row g-0">
             <div class="col-md-2 d-none d-md-block">
               <img class="img-fluid mx-auto d-block" alt="Responsive image"
@@ -52,14 +72,26 @@ FERME | Carro de Compra
                     <label for="select">Cantidad</label>
                     <select id="select{{producto.id}}" style="width:50px;height:31px;">
                       <option value="" selected disabled hidden>{{item.cantidad}}</option>
-                      <option value="">1</option>
-                      <option value="">2</option>
-                      <option value="">3</option>
-                      <option value="">4</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
                     </select>
-                <a type="button" id="update-button" data-index="{{producto.id}}" class="update-button text-decoration-none small ps-3">Actualizar</a>
+                <a type="button" id="update-button" data-index="{{producto.id}}" data-stock="{{producto.stock_actual}}" class="update-button text-decoration-none small ps-3">Actualizar</a>
                 <a type="button" id="delete-button" data-index="{{producto.id}}" class="delete-button text-decoration-none small">Eliminar</a>
-                <p class="card-text pb-3">Precio: <span class="fw-bold">${{producto.precio}}</span></p>
+                <p class="card-text pb-3">Precio: <span class="fw-bold">${{producto.precio | intcomma}}</span></p>
+                <p id="message{{producto.id}}" class="text-danger d-none">No hay stock suficiente de este producto</p>
               </div>
             </div>
           </div>
@@ -68,7 +100,9 @@ FERME | Carro de Compra
         {% endfor %}
       </div>
     </div>
-    
+    <div class="d-flex justify-content-center" >
+      <a href="{% static 'pdf/Manual para realizar compra 1.pdf' %}" target="_blank" ><img width="40px" class="img-fluid" src="{% static 'images/informacion.png' %}" alt=""></a>
+    </div>
   </div>
 </main>
 
@@ -86,10 +120,10 @@ FERME | Carro de Compra
               action:'post'
           },
           success: function(json) {
-            console.log(prodid);
             $('.product-item[data-index="' + prodid + '"]').remove();
             document.getElementById("basket-qty").innerHTML = json.cantidad
             document.getElementById("subtotal").innerHTML = json.subtotal
+            
           },
           error: function(xhr, errmsg, err) {
               
@@ -97,28 +131,61 @@ FERME | Carro de Compra
       });
   })
 
+  //boton pagar cliente
+  $(document).on('click', ".pagar", function (e) {
+      var radioValue = $("input[name='documento']:checked").val();
+      if(radioValue == 'boleta'){
+        location.href="/checkout/pago_seleccion/boleta/";
+      } else {
+        location.href="/checkout/pago_seleccion/factura/";
+      }
+  });
+
+  //boton realizar venta vendedor
+  $(document).on('click', ".venta", function (e) {
+      var radioValue = $("input[name='documento']:checked").val();
+      if(radioValue == 'boleta'){
+        location.href="/checkout/pago_seleccion_venta/boleta/";
+      } else {
+        location.href="/checkout/pago_seleccion_venta/factura/";
+      }
+  });
+
+
   //Update item
   $(document).on('click', '.update-button', function (e) {
       e.preventDefault();
       let prodid = $(this).data('index');
-      $.ajax({
-          type: 'POST',
-          url: '{% url "ferme:carro_actualizar" %}',
-          data: {
-              productoid: $(this).data('index'),
-              productocantidad: $('#select'+ prodid + ' option:selected').text(),
-              csrfmiddlewaretoken: "{{csrf_token}}",
-              action:'post'
-          },
-          success: function(json) {
-            document.getElementById("basket-qty").innerHTML = json.cantidad
-            document.getElementById("subtotal").innerHTML = json.subtotal
-          },
-          error: function(xhr, errmsg, err) {
-              
-          }
-      });
+      let stock = $(this).data('stock');
+      let cantidad = $(`#select${prodid} option:selected`).text();
+      if(parseInt(stock) >= parseInt(cantidad)) {
+        let message = document.getElementById(`message${prodid}`)
+        message.classList.remove("d-inline")
+        message.classList.add("d-none");
+        $.ajax({
+            type: 'POST',
+            url: '{% url "ferme:carro_actualizar" %}',
+            data: {
+                productoid: $(this).data('index'),
+                productocantidad: $('#select'+ prodid + ' option:selected').text(),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action:'post'
+            },
+            success: function(json) {
+              document.getElementById("basket-qty").innerHTML = json.cantidad
+              document.getElementById("subtotal").innerHTML = json.subtotal
+            },
+            error: function(xhr, errmsg, err) {
+                
+            }
+        });
+      } else {
+        let message = document.getElementById(`message${prodid}`)
+        message.classList.add("d-inline");
+        message.classList.remove("d-none");
+      }
   })
+
 
 </script>
 

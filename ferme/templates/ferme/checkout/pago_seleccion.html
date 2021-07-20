@@ -1,0 +1,148 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Selección pago
+{% endblock %}
+
+{% block content %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+
+<div class="container">
+    <div class="col-12">
+      <h1 class="h2">Opciones de pago</h1>
+    </div>
+    <div class="col-12">
+      <p>Seleccione su medio de pago:</p>
+    </div>
+    <hr />
+  </div>
+
+<div class="container">
+    <div class="row g-3">
+      <div class="col-md-4 col-lg-4 order-md-last p-0 order-3">
+          {% if tipo == 'boleta' %}
+          <div class="d-flex bd-highlight ms-0">
+            <div class="p-2 flex-grow-1 bd-highlight">Total:</div>
+            <div class="p-2 bd-highlight"><span class="fw-bold h5">$</span><span id="total"
+                class="fw-bold h5">{{carro.get_total_precio | intcomma}}</span></div>
+          </div>
+          {% endif %}
+          {% if tipo == 'factura' %}
+          <div class="d-flex bd-highlight">
+            <div class="p-2 flex-grow-1 bd-highlight">Sub total:</div>
+            <div class="p-2 bd-highlight"><span class="fw-bold h5">$</span><span id="total"
+                class="fw-bold h5">{{carro.get_total_precio | intcomma}}</span></div>
+          </div>
+          <div class="d-flex bd-highlight">
+              <div class="p-2 flex-grow-1 bd-highlight">IVA:</div>
+              <div class="p-2 bd-highlight"><span class="fw-bold h5">- $</span><span id="total"
+              class="fw-bold h5">{{carro.get_iva | intcomma}}</span></div>
+          </div>
+          <div class="d-flex bd-highlight">
+              <div class="p-2 flex-grow-1 bd-highlight">Total:</div>
+              <div class="p-2 bd-highlight"><span class="fw-bold h5">$</span><span id="total"
+              class="fw-bold h5">{{carro.get_total_precio_factura | intcomma}}</span></div>
+          </div>
+          {% endif %}
+      </div>
+{% if tipo == 'factura' %}
+    <form action="" id="formulario_empresa" method="post">
+      {% csrf_token %}
+
+      {{ form | crispy }}
+      <br>
+      <button type="submit" id="btnGuardar" class="btn  btn-primary">Continuar con el pago</button>
+    </form>
+
+{% endif %}
+
+      <div class="col-md-7 col-lg-8 pe-0 pe-md-5">
+        {% if empresa.nombre_empresa or tipo == 'boleta'  %}
+        <div id="paypal-button-container"></div>
+        {% endif %}
+      </div>
+    </div>
+</div>
+<script
+  src="https://www.paypal.com/sdk/js?client-id=ARMN0sySxtSS7CfbJ19fxhfkMEoGvVSS8wSKiB2mo2MUujS3xGkNP6F2UPCe6t-BvKR5G0TbXBDEw4w7&buyer-country=CL&currency=USD"
+  data-sdk-integration-source="button-factory">
+</script>
+<script>
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  var csrftoken = getCookie('csrftoken');
+
+
+  function initPayPalButton() {
+    paypal.Buttons({
+      style: {
+        shape: 'rect',
+        color: 'gold',
+        layout: 'vertical',
+        label: 'paypal',
+
+      },
+    createOrder: function (data, actions) {
+      let tipo = "{{ tipo }}"
+      if (tipo == 'boleta') { 
+        return actions.order.create({
+          purchase_units: [{
+            "amount": {
+              "currency_code": "USD",
+              "value": '{{carro.get_total_precio}}'
+            }
+          }]
+        });
+      } else if (tipo == 'factura') {
+        return actions.order.create({
+          purchase_units: [{
+            "amount": {
+              "currency_code": "USD",
+              "value": '{{carro.get_total_precio_factura}}'
+            }
+          }]
+        });
+      } 
+    },
+    onApprove: function (data) {
+        var url = "{% url 'ferme:pago_completo' tipo  %}"
+        var nombre_empresa = '{{ empresa.nombre_empresa }}'
+        var rut_empresa = '{{ empresa.rut_empresa }}'
+        var telefono = '{{ empresa.telefono }}'
+        return fetch(url, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            'X-CSRFToken': csrftoken,
+          },
+          body: JSON.stringify({
+            orderID: data.orderID,
+            nombre_empresa: nombre_empresa,
+            rut_empresa: rut_empresa,
+            telefono: telefono,
+          })
+        }).then(function () {
+          location.href = "{% url 'ferme:pago_exitoso' %}"
+        })
+      },
+    }).render('#paypal-button-container');
+  }
+  initPayPalButton()
+
+</script>
+
+
+{% endblock %}

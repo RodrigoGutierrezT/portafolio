@@ -1,0 +1,110 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Informe ganancias por Boleta
+{% endblock %}
+
+{% block content %}
+
+
+<main class="">
+
+<div class="col-10 col-md-8 col-lg-8 offset-md-2 offset-lg-2 offset-1">
+<div id="reportPage">
+    <hr>
+    <h2 class="text-center">Informe Ganancias de Boletas</h2>
+    <hr>
+    <a class="d-block text-end" href="#" id="downloadPdf">Descargar como PDF</a>
+    <div class="card-body">
+        <canvas id="myChart1" width="800" height="600"></canvas>
+    </div>
+</div>
+</div>
+</main>
+
+<script>
+    var ctx = document.getElementById('myChart1').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [{% for m in meses %} '{{m}}',{% endfor %}],
+    datasets: [{
+        label: 'Ganancias',
+        data: [{% for t in totales %} {{ t }}, {% endfor %}],
+        backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+                borderWidth: 1
+    }]
+        },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+    });
+
+    $('#downloadPdf').click(function(event) {
+  // get size of report page
+  var reportPageHeight = $('#reportPage').innerHeight();
+  var reportPageWidth = $('#reportPage').innerWidth();
+  
+  // create a new canvas object that we will populate with all other canvas objects
+  var pdfCanvas = $('<canvas />').attr({
+    id: "canvaspdf",
+    width: reportPageWidth,
+    height: reportPageHeight
+  });
+  
+  // keep track canvas position
+  var pdfctx = $(pdfCanvas)[0].getContext('2d');
+  var pdfctxX = 0;
+  var pdfctxY = 0;
+  var buffer = 100;
+  
+  // for each chart.js chart
+  $("canvas").each(function(index) {
+    // get the chart height/width
+    var canvasHeight = $(this).innerHeight();
+    var canvasWidth = $(this).innerWidth();
+    
+    // draw the chart into the new canvas
+    pdfctx.drawImage($(this)[0], pdfctxX, pdfctxY, canvasWidth, canvasHeight);
+    pdfctxX += canvasWidth + buffer;
+    
+    // our report page is in a grid pattern so replicate that in the new canvas
+    if (index % 2 === 1) {
+      pdfctxX = 0;
+      pdfctxY += canvasHeight + buffer;
+    }
+  });
+  
+  // create new pdf and add our new canvas as an image
+  var pdf = new jsPDF('l', 'pt', [reportPageWidth, reportPageHeight]);
+  pdf.text(150, 30, 'Informe Ganancias de Boletas');
+  pdf.addImage($(pdfCanvas)[0], 'PNG', 20, 100);
+  
+  // download the pdf
+  pdf.save('informe_boletas.pdf');
+});
+
+</script>
+
+{% endblock %}

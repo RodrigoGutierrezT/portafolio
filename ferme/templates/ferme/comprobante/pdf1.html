@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprobante</title>
+    <style>
+        .ml-600 {
+            margin-left: 598px;
+        }
+
+        .ml-500 {
+            margin-left: 560px;
+        }
+
+        .ml-90 {
+            margin-left: 90px;
+        }
+        .ml-60 {
+            margin-left: 60px;
+        }
+
+        img {
+            padding-left: 100px;
+        }
+
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <img src="C:\\portafolio\\static\\images\\banner.png" width="950px">
+        <h1>Cliente: {{compra.nombre | title}} {{compra.apellido_paterno | title}}</h1>
+        {% if boleta %}
+        <h3>Fecha: {{boleta.fecha}}</h3>
+        <h2>Boleta Nro: {{boleta.id}}</h2>
+        {% endif %}
+        {% if factura %}
+        <h3>{{factura.fecha}}</h3>
+        <h2>Factura Nro: {{factura.id}}</h2>
+        {% endif %}
+        <hr>
+        <table style="width:100%">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+            </tr>
+        {% for detalle in detalles %}
+            <tr>
+                <td>{{detalle.producto.cod_prod}} </td>
+                <td>{{detalle.producto.nombre}} </td>
+                <td class="ml-90">{{detalle.cantidad}}</td>
+                <td class="ml-60">${{detalle.precio}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        <hr>
+        {% if boleta %}
+        <h1 class="ml-600">Total: ${{boleta.total}}</h3>
+        {% endif %}
+        {% if factura %}
+        <h2 class="ml-500">Descuento IVA: ${{ iva }}</h3>
+        <h1 class="ml-600">Total: ${{factura.total}}</h3>
+        {% endif %}
+        {% if boleta.estado == 'ANULADA' %}
+        <img src="C:\\portafolio\\static\\images\\cancelado.jpg" width="1000px">
+        {% endif %}
+        {% if factura.estado == 'ANULADA' %}
+        <img src="C:\\portafolio\\static\\images\\cancelado.jpg" width="1000px">
+        {% endif %}
+    </div>
+</body>
+</html>

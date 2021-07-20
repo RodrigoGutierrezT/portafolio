@@ -166,6 +166,29 @@ class DetalleOrden(models.Model):
     def __str__(self):
         return str(self.orden_compra.id) + ' ' + str(self.producto.nombre) + ' ' + str(self.cantidad)
 
+class Compra(models.Model):
+    medio_opciones = (
+        ('EFECTIVO', 'EFECTIVO'),
+        ('DEBITO', 'DEBITO'),
+        ('CREDITO', 'CREDITO')
+    )
+
+    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="compra_user", null=True, blank=True)
+    nombre = models.CharField(max_length=40)
+    apellido_paterno = models.CharField(max_length=30)
+    email = models.EmailField(max_length=254, blank=True)
+    fecha = models.DateField(auto_now_add=True)
+    total = models.PositiveIntegerField()
+    order_key = models.CharField(max_length=200, blank=True)
+    medio_pago = models.CharField(max_length=200,choices=medio_opciones, default=medio_opciones[0][0])
+    pagado = models.BooleanField(default=False)
+    empleado = models.ForeignKey(Empleado, related_name='compra_empleado', on_delete=models.PROTECT, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'compras'
+
+    def __str__(self):
+        return str(self.nombre) + ' ' + str(self.apellido_paterno) + ' ' + str(self.fecha) + ' '  + str(self.total)
 
 class Factura(models.Model):
     estado_opciones = (
@@ -178,6 +201,7 @@ class Factura(models.Model):
     telefono = models.CharField(max_length=9)
     total = models.PositiveIntegerField()
     estado = models.CharField(max_length=15, choices=estado_opciones, default=estado_opciones[0][0])
+    compra = models.OneToOneField(Compra, on_delete=models.PROTECT, unique=True)
 
     class Meta:
         verbose_name_plural = 'facturas'
@@ -195,27 +219,13 @@ class Boleta(models.Model):
     rut_cliente = models.CharField(max_length=9)  
     total = models.PositiveIntegerField()
     estado = models.CharField(max_length=15, choices=estado_opciones, default=estado_opciones[0][0])
+    compra = models.OneToOneField(Compra, on_delete=models.PROTECT, unique=True)
 
     class Meta:
         verbose_name_plural = 'boletas'
 
     def __str__(self):
         return str(self.id)
-
-
-class Compra(models.Model):
-    fecha = models.DateField(default=datetime.now)
-    cliente = models.ForeignKey(Cliente, related_name='compra_cliente', on_delete=models.PROTECT)
-    empleado = models.ForeignKey(Empleado, related_name='compra_empleado', on_delete=models.PROTECT, null=True, blank=True)
-    total = models.PositiveIntegerField()
-    boleta = models.OneToOneField(Boleta, on_delete=models.CASCADE, null=True, blank=True)
-    factura = models.OneToOneField(Factura, on_delete=models.CASCADE, null=True, blank=True)
-
-    class Meta:
-        verbose_name_plural = 'compras'
-
-    def __str__(self):
-        return str(self.cliente) + ' ' + str(self.fecha) + ' ' + str(self.total)
 
 
 class NotaCredito(models.Model):
@@ -226,7 +236,7 @@ class NotaCredito(models.Model):
     nombre_cliente = models.CharField(max_length=20)
     apellido_cliente = models.CharField(max_length=20)
     rut = models.CharField(max_length=9)  
-    fecha = models.DateField(default=datetime.now)
+    fecha = models.DateField(auto_now_add=True)
     total_devolucion = models.PositiveIntegerField()
     estado = models.CharField(max_length=15, choices=estado_opciones, default=estado_opciones[0][0])
     boleta = models.OneToOneField(Boleta, on_delete=models.CASCADE, null=True, blank=True)
@@ -312,7 +322,7 @@ def empleado_usuario_creacion(sender, instance, **kwargs):
         username = instance.email
         password = (str(instance.rut))[0:6] + (str(instance.nombre))[0:3].lower() 
         first_name = instance.nombre
-        instance.user = User.objects.create_user(username=username, password=password, first_name=first_name)
+        instance.user = User.objects.create_user(username=username, password=password, first_name=first_name, email=username)
 
 @receiver(post_delete, sender=Empleado)
 def empleado_usuario_delete(sender, instance, **kwargs):
@@ -340,7 +350,7 @@ def cliente_usuario_creacion(sender, instance, **kwargs):
         username = instance.email
         password = (str(instance.rut))[0:6] + (str(instance.nombre))[0:3].lower() 
         first_name = instance.nombre
-        instance.user = User.objects.create_user(username=username, password=password, first_name=first_name)
+        instance.user = User.objects.create_user(username=username, password=password, first_name=first_name, email=username)
 
 @receiver(post_delete, sender=Cliente)
 def cliente_usuario_delete(sender, instance, **kwargs):
@@ -368,7 +378,7 @@ def proveedor_usuario_creacion(sender, instance, **kwargs):
         username = instance.email
         password = (str(instance.rut))[0:6] + (str(instance.nombre))[0:3].lower() 
         first_name = instance.nombre
-        instance.user = User.objects.create_user(username=username, password=password, first_name=first_name)
+        instance.user = User.objects.create_user(username=username, password=password, first_name=first_name, email=username)
 
 @receiver(post_delete, sender=Proveedor)
 def empleado_usuario_delete(sender, instance, **kwargs):

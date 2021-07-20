@@ -30,7 +30,7 @@
 
                             {% csrf_token %}
                             {{ form | crispy }}
-                            <a href="{% url 'ferme:registro' %}">Crear cuenta</a> | <a href="#">Recuperar contraseña</a> 
+                            <a href="{% url 'ferme:registro' %}">Crear cuenta</a> | <a href="{% url 'ferme:reset_password' %}">Recuperar contraseña</a> 
                             <br>
                             <br>
                             <input type="submit" value="Ingresar" class="btn btn-success w-100">

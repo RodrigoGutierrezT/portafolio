@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprobante</title>
+    <style>
+        .ml-600 {
+            margin-left: 560px;
+        }
+
+        .ml-700 {
+            margin-left: 590px;
+        }
+
+        .ml-500 {
+            margin-left: 510px;
+        }
+
+        .ml-90 {
+            margin-left: 90px;
+        }
+        .ml-60 {
+            margin-left: 60px;
+        }
+
+        img {
+            padding-left: 100px;
+        }
+
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <img src="C:\\portafolio\\static\\images\\banner.png" width="950px">
+        <h1>Cliente: {{nota.nombre_cliente | title}} {{nota.apellido_cliente | title}}</h1>
+        <h1>Rut: {{nota.rut}}</h1>
+        <h1>Nota de crédito Nro: {{nota.id}}</h1>
+        <h2>Generada por: {{nota.empleado.nombre | title}} {{nota.empleado.apellido_paterno | title}}</h2>
+        <h3>Fecha: {{nota.fecha}}</h3>
+        {% if boleta %}
+        <h3 class="ml-700">Boleta Nro: {{boleta.id}}</h3>
+        {% endif %}
+        {% if factura %}
+        <h3 class="ml-700">Factura Nro: {{factura.id}}</h3>
+        {% endif %}
+        <hr>
+        <table style="width:100%">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+            </tr>
+        {% for detalle in detalles %}
+            <tr>
+                <td>{{detalle.producto.cod_prod}} </td>
+                <td>{{detalle.producto.nombre}} </td>
+                <td class="ml-90">{{detalle.cantidad}}</td>
+                <td class="ml-60">${{detalle.precio}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        <hr>
+        {% if boleta %}
+        <h2 class="ml-600">Total Boleta: ${{boleta.total}}</h2>
+        {% endif %}
+        {% if factura %}
+        <h2 class="ml-600">Descuento IVA: ${{ iva }}</h2>
+        <h2 class="ml-600">Total Factura: ${{factura.total}}</h2>
+        {% endif %}
+        <h1 class="ml-500">Total Devolución: ${{nota.total_devolucion}}</h1>
+
+        {% if nota.estado == 'ANULADA' %}
+        <img src="C:\\portafolio\\static\\images\\cancelado.jpg" width="1000px">
+        {% endif %}
+        
+    </div>
+</body>
+</html>

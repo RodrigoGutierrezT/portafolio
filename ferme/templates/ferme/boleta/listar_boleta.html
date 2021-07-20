@@ -1,0 +1,92 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Listar boletas
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+    let anularBoleta = async (id) => {
+        let response = await Swal.fire({
+            "title":"¿Estas seguro?",
+            "text": "esta acción no se puede deshacer",
+            "icon": "question",
+            "showCancelButton": true,
+            "cancelButtonText": "Cancelar",
+            "confirmButtonText": "Si, Anular",
+            "confirmButtonColor": "#dc3545"
+        });
+
+        if(response.isConfirmed) {
+            window.location.href = "/boleta/anular/"+id+"/";
+        }
+    } 
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+<main class="">
+
+<div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+<div>
+    <hr>
+    <div>
+        <h2>Boletas</h2>
+    </div>
+    <hr>
+    <div class="col-6 col-md-6 col-lg-6">
+    <div class="card card-body">
+
+        <form method="get">
+            {{myFilter.form | crispy}}
+            <br>
+        <button class="btn btn-primary btn-sm" type="submit">Buscar</button>
+      </form>
+
+    </div>
+    </div>
+    <br>
+        <table class="table table-sm table-striped table-hover table-responsive-md">
+            <tr>
+                <th>iD</th>
+                <th>Rut</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Total</th>
+                <th>Anular</th>
+                <th>Comprobante</th>
+            </tr>
+
+            {% for b in entity %}
+
+            <tr>
+                <td>{{b.id}}</td>
+                <td>{{b.rut_cliente}}</td>
+                <td>{{b.fecha}}</td>
+                <td>{{b.estado | title }}</td>
+                <td>${{b.total | intcomma }}</td>
+                <td>
+                    {% if b.estado == 'GENERADA' %}
+                    <a class="btn btn-sm btn-danger {{ b.id }}" id="{{ b.id }}" onclick="anularBoleta({{ b.id }})" href="#">Anular</a>
+                    {% endif %}
+                </td>
+                <td><a class="btn btn-sm btn-success" target="_blank" href="{% url 'ferme:comprobante_boleta_view' b.id %}">Comprobante</a></td>
+
+            </tr>
+            {% endfor %}
+
+        </table>
+        <div>
+            {% include 'ferme/paginator.html' %}
+        </div>
+</div>
+</div>
+</main>
+
+{% endblock %}

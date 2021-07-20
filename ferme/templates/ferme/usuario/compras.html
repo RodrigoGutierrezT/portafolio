@@ -1,0 +1,49 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block title %}
+FERME | Listar compras
+{% endblock %}
+
+
+{% block content %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+<main class="">
+
+<div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+<div>
+    <hr>
+    <div class="d-flex justify-content-center">
+        <h2>Compras</h2>
+    </div>
+    <hr>
+        <table class="table table-sm table-striped table-hover table-responsive-md">
+            <tr>
+                <th>iD</th>
+                <th>Fecha</th>
+                <th>Medio de pago</th>
+                <th>Total</th>
+                <th>Comprobante</th>
+            </tr>
+
+            {% for c in entity %}
+
+            <tr>
+                <td>{{c.id}}</td>
+                <td>{{c.fecha}}</td>
+                <td>{{c.medio_pago | title}}</td>
+                <td>${{c.total | intcomma}}</td>
+                <td><a class="btn btn-sm btn-success" target="_blank" href="{% url 'ferme:comprobante_compra_view' c.id %}">Comprobante</a></td>
+            </tr>
+            {% endfor %}
+
+        </table>
+        <div>
+            {% include 'ferme/paginator.html' %}
+        </div>
+</div>
+</div>
+
+</main>
+
+{% endblock %}

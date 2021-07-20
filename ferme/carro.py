@@ -1,4 +1,4 @@
-
+from django.conf import settings
 from .models import Producto
 
 class Carro():
@@ -6,9 +6,9 @@ class Carro():
     def __init__(self, request):
 
         self.session = request.session
-        carro = self.session.get('skey')
-        if 'skey' not in request.session:
-            carro = self.session['skey'] = {}
+        carro = self.session.get(settings.BASKET_SESSION_ID)
+        if settings.BASKET_SESSION_ID not in request.session:
+            carro = self.session[settings.BASKET_SESSION_ID] = {}
         self.carro = carro
     
 
@@ -41,7 +41,15 @@ class Carro():
         return sum(item['cantidad'] for item in self.carro.values())
 
     def get_total_precio(self):
-        return sum(item['precio'] * item['cantidad'] for item in self.carro.values())  
+        return sum(item['precio'] * item['cantidad'] for item in self.carro.values())
+
+    def get_total_precio_factura(self):
+        total_factura = self.get_total_precio() * 0.81
+        return round(total_factura)
+    
+    def get_iva(self):
+        total_iva = self.get_total_precio() * 0.19
+        return round(total_iva)
 
     def eliminar(self, producto):
         """
@@ -52,8 +60,8 @@ class Carro():
 
         if producto_id in self.carro:
             del self.carro[producto_id]
+            self.guardar()
             
-        self.guardar()
     
     def actualizar(self, producto, cantidad):
         """
@@ -64,6 +72,13 @@ class Carro():
         if producto_id in self.carro:
             self.carro[producto_id]['cantidad'] = cantidad
         
+        self.guardar()
+    
+    def clear(self):
+        # Remove basket from session
+        del self.session[settings.BASKET_SESSION_ID]
+        # del self.session["address"]
+        # del self.session["purchase"]
         self.guardar()
 
     

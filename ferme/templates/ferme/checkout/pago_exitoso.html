@@ -1,0 +1,32 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Pago Exitoso
+{% endblock %}
+
+{% block content %}
+{% load humanize %}
+
+<main class="">
+
+    <div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+    <div>
+        <hr>
+        <h2 class="text-center">Pago registrado exitosamente!</h2>
+        <hr>
+        <br>
+        <h3 class="text-center">Recuerda:</h3>
+        <br>
+        <p>- Cuentas con 72 hrs. para retirar tu producto, una vez realizada la compra.</p>
+        <p>- Deberá presentarse con un documento que acredite su identidad con nombre, RUT, firma y foto.</p>
+        <p>- Nuestro Horario de atención es de Lun - Vie: 08:30 - 17:30 y Sábado: 08:30 - 14:30. </p>
+        <br>
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-success" href="{% url 'ferme:compra_listar' %}">Ver mis compras</a>
+        </div>
+    </div>
+    
+    </div>
+    </div>
+    </main>
+{% endblock %}

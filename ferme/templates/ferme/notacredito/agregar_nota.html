@@ -1,0 +1,29 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Agregar nota de crédito
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<main class="">
+
+<div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+<div>
+    <h2>Nota de crédito</h2>
+    <form action="" id="formulario_contacto" method="post">
+        {% csrf_token %}
+
+        {{ form | crispy }}
+
+        <br/>
+        <button type="submit" id="btnGuardar" class="btn  btn-primary">Guardar</button>
+    </form>
+    <p>{{mensaje}}</p>
+</div>
+
+</div>
+</div>
+</main>
+
+{% endblock %}

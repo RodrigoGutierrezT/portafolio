@@ -1,0 +1,25 @@
+{% extends "../base.html" %}
+
+{% block title %}
+FERME | Venta Exitosa
+{% endblock %}
+
+{% block content %}
+{% load humanize %}
+
+<main class="">
+
+    <div class="col-10 col-md-6 col-lg-6 offset-md-3 offset-lg-3 offset-1">
+    <div>
+        <hr>
+        <h2 class="text-center">Venta realizada exitosamente!</h2>
+        <hr>
+        <br>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-success" href="{% url 'ferme:comprobante_compra_view' compra %}">Ver comprobante</a>
+        </div>
+    </div>
+    </div>
+    </div>
+    </main>
+{% endblock %}
